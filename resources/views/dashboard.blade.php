@@ -10,7 +10,7 @@
 
             <div class="panel-body">
                 <ul class="nav nav-tabs">
-                    <li><a href="#">Kegiatan yang </a></li>
+                    <li><a href="#">Kegiatan yang butuh divalidasi</a></li>
                     <li><a href="#">Kegiatan tervalidasi</a></li>
                     <li><a href="#">Kegiatan invalid</a></li>
                 </ul>
