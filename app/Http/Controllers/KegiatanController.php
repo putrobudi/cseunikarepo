@@ -129,19 +129,26 @@ class KegiatanController extends Controller
        $kegiatan->Bukti = $request->input('Bukti');
        $kegiatan->Foto = $request->input('Foto');
        $kegiatan->user_id = auth()->user()->id;
-       $kegiatan->Kevalidan = "Menunggu Validasi";
+       
 
        $kegiatan->save();
        return redirect('/dashboard')->with('success', 'Update kegiatan berhasil diajukan');
     }
 
-    public function updateValidasi($id)
+    public function updateValidasi(Request $request, $id)
     {
         $kegiatan = Kegiatan::find($id); 
-        $kegiatan->Kevalidan = "Valid";
+        
+        $kegiatan->Kevalidan = $request->input('Kevalidan');
 
         $kegiatan->save();
-        return redirect('/dashboard')->with('success', 'Kegiatan berhasil divalidasi');
+        if($kegiatan->Kevalidan == 'Valid')
+            return redirect('/dashboard')->with('success', 'Kegiatan '.$kegiatan->Judul. ' berhasil divalidasi');
+        else
+            return redirect('/dashboard')->with('success', 'Kegiatan '.$kegiatan->Judul. ' berhasil diinvalidasi');
+
+        
+        
     }
 
     /**

@@ -5,66 +5,154 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
+
             @if($peran_id == 8 || $peran_id == 9 || $peran_id == 10)
             <div class="panel-heading">Dashboard</div>
 
+
             <div class="panel-body">
-                <ul class="nav nav-tabs">
-                    <li><a href="#">Kegiatan yang butuh divalidasi</a></li>
-                    <li><a href="#">Kegiatan tervalidasi</a></li>
-                    <li><a href="#">Kegiatan invalid</a></li>
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active"><a data-toggle="tab" href="#to_validate">Kegiatan yang butuh divalidasi</a></li>
+                    <li><a data-toggle="tab" href="#validated">Kegiatan tervalidasi</a></li>
+                    <li><a data-toggle="tab" href="#invalid">Kegiatan Invalid</a></li>
                 </ul>
-                
+                <div class="tab-content">
+                    <div id="to_validate" class="tab-pane fade in active">
+                        <h3>Kegiatan yang butuh divalidasi</h3>
+                        @if(count($kegiatans))
+                        <ul class="list-group">
+                            @foreach($kegiatans as $kegiatan)
+                            @if($kegiatan->Kevalidan == 'Menunggu validasi')
+                            <li class="list-group-item"><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></li>
+                            @endif
+                            @endforeach
+                        </ul>
+                        @else
+                        <h3>Tidak ada kegiatan untuk diproses.</h3>
+                        @endif
+                    </div>
+                    <div id="validated" class="tab-pane fade">
+                        <h3>Kegiatan sudah divalidasi</h3>
+                        @if(count($kegiatans))
+                        <ul class="list-group">
+                            @foreach($kegiatans as $kegiatan)
+                            @if($kegiatan->Kevalidan == 'Valid')
+                            <li class="list-group-item"><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></li>
+                            @endif
+                            @endforeach
+                        </ul>
+                        @else
+                        <h3>Tidak ada kegiatan untuk diproses.</h3>
+                        @endif
+                    </div>
+                    <div id="invalid" class="tab-pane fade">
+                        <h3>Kegiatan invalid</h3>
+                        @if(count($kegiatans))
+                        <ul class="list-group">
+                            @foreach($kegiatans as $kegiatan)
+                            @if($kegiatan->Kevalidan == 'Invalid')
+                            <li class="list-group-item"><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></li>
+                            @endif
+                            @endforeach
+                        </ul>
+                        @else
+                        <h3>Tidak ada kegiatan untuk diproses.</h3>
+                        @endif
+                    </div>
+                </div>
 
 
 
-                @if(count($kegiatans))
-                <ul class="list-group">
-                    @foreach($kegiatans as $kegiatan)
-                    <li class="list-group-item"><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></li>
-                    @endforeach
-                </ul>
-                @else
-                <h3>Tidak ada kegiatan untuk diproses.</h3>
-                @endif
+
+
                 @else
                 <div class="panel-heading">Dashboard <span class="pull-right"><a href="/kegiatans/create" class="btn btn-success btn-xs">Upload Kegiatan</a></span></div>
                 <div class="panel-body">
                     <h3>Kegiatanmu</h3>
 
                     @if(count($kegiatans))
-                    
-                    <ul class="nav nav-tabs">
-                        <li><a href="#">Kegiatan menunggu divalidasi</a></li>
-                        <li><a href="#">Kegiatan tervalidasi</a></li>
-                        <li><a href="#">Kegiatan ditolak</a></li>
+
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active"><a data-toggle="tab" href="#to_validate">Kegiatan menunggu divalidasi</a></li>
+                        <li><a data-toggle="tab" href="#validated">Kegiatan tervalidasi</a></li>
+                        <li><a data-toggle="tab" href="#invalid">Kegiatan invalid</a></li>
                     </ul>
-                    <table class="table table-striped">
-                        <!-- loop through each kegiatan -->
-                        @foreach($kegiatans as $kegiatan)
-                        <tr>
-                            <td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
-                            <td><a class="pull-right btn btn-default" href="/kegiatans/{{$kegiatan->id}}/edit">Edit</a></td>
-                            <td>
-                                {!! Form::open(['action' => ['KegiatanController@destroy', $kegiatan->id], 'method' => 'POST', 'class' => 'pull-left', 'onsubmit' => 'return confirm("Are you sure?")']) !!}
-                                {{ Form::hidden('_method', 'DELETE') }}
-                                {{ Form::bsSubmit('Delete', ['class' => 'btn btn-danger']) }}
-                                {!! Form::close() !!}
-                            </td>
-                        </tr>
-                        @endforeach
-                    </table>
-                    @endif
-                    @endif
+                    <div class="tab-content">
+                        <div id="to_validate" class="tab-pane fade in active">
+                            
+                            @if(count($kegiatans))
+                            <table class="table table-striped">
+                            @foreach($kegiatans as $kegiatan)
+                                <tr>
+                                    
+                                    @if($kegiatan->Kevalidan == 'Menunggu validasi')
+                                        <td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
+                                        <td><a class="pull-right btn btn-default" href="/kegiatans/{{$kegiatan->id}}/edit">Edit</a></td>
+                                        <td>
+                                            {!! Form::open(['action' => ['KegiatanController@destroy', $kegiatan->id], 'method' => 'POST', 'class' => 'pull-left', 'onsubmit' => 'return confirm("Are you sure?")']) !!}
+                                            {{ Form::hidden('_method', 'DELETE') }}
+                                            {{ Form::bsSubmit('Delete', ['class' => 'btn btn-danger']) }}
+                                            {!! Form::close() !!}
+                                        </td>
+                                    @endif
+                                    
+                                </tr>
+                            @endforeach
+                            </table>
+                                
+                            @else
+                            <h3>Tidak ada kegiatan untuk diproses.</h3>
+                            @endif
+                        </div>
+
+                        <div id="validated" class="tab-pane fade">
+                            
+                            @if(count($kegiatans))
+                            <table class="table table-striped">
+                            @foreach($kegiatans as $kegiatan)
+                                <tr>
+                                    
+                                    @if($kegiatan->Kevalidan == 'Valid')
+                                        <td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
+                                    @endif
+                                    
+                                </tr>
+                            @endforeach
+                            </table>
+                                
+                            @else
+                            <h3>Tidak ada kegiatan untuk diproses.</h3>
+                            @endif
+                        </div>
+
+                        <div id="invalid" class="tab-pane fade">
+                            
+                        @if(count($kegiatans))
+                            <table class="table table-striped">
+                            @foreach($kegiatans as $kegiatan)
+                                <tr>
+                                    
+                                    @if($kegiatan->Kevalidan == 'Invalid')
+                                        <td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
+                                    @endif
+                                    
+                                </tr>
+                            @endforeach
+                            </table>
+                                
+                            @else
+                            <h3>Tidak ada kegiatan untuk diproses.</h3>
+                            @endif
+                        </div>
+                    </div>
+
+                    
+                    @endif <!--endif count-->
+                    @endif <!--// endif dosen or mahasiswa-->
 
                 </div>
             </div>
         </div>
     </div>
-    
-@endsection
 
-
-
-
-    <!--mitrais -> java jogja -->
+    @endsection

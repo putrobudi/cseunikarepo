@@ -40,7 +40,7 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
-Route::post('kegiatans/{kegiatan}/updateValidasi', 'KegiatanController@updateValidasi');
+Route::patch('kegiatans/{kegiatan}/updateValidasi', 'KegiatanController@updateValidasi');
 Route::resource('kegiatans', 'KegiatanController');
 
 Route::resource('peran', 'PeranController');

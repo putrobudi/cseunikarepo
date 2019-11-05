@@ -30,9 +30,23 @@
 
               @if($peran_id == 8 || $peran_id == 9 || $peran_id == 10)
                 @if($kegiatan->Kevalidan == 'Menunggu validasi')
-                  {!! Form::open(['action' => ['KegiatanController@updateValidasi', $kegiatan->id], 'method' => 'POST']) !!}
+                  <table width = "200" align = "center">
+                    <td>
+                      {!! Form::open(['action' => ['KegiatanController@updateValidasi', $kegiatan->id], 'method' => 'POST']) !!}
+                        {{ Form::hidden('Kevalidan', 'Valid') }}
+                        {{ Form::hidden('_method', 'PATCH') }}
                         {{ Form::bsSubmit('Validasi', ['class' => 'btn btn-primary']) }}
-                  {!! Form::close() !!}
+                      {!! Form::close() !!}
+                    </td>
+                    <td>
+                      {!! Form::open(['action' => ['KegiatanController@updateValidasi', $kegiatan->id], 'method' => 'POST']) !!}
+                        {{ Form::hidden('Kevalidan', 'Invalid') }}
+                        {{ Form::hidden('_method', 'PATCH') }}  
+                        {{ Form::bsSubmit('Invalidasi', ['class' => 'btn btn-danger']) }}
+                      {!! Form::close() !!}
+                    </td>
+                  </table>
+                  
                 @endif
               @endif
                 
