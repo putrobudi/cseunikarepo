@@ -23,11 +23,98 @@
                     <li><a data-toggle="tab" href="#invalid">Kegiatan Invalid</a></li>
                 </ul>
                 <div class="tab-content">
+
+                    <!-- Tab Kegiatan Menunggu Validasi -->
                     <div id="to_validate" class="tab-pane fade in active">
 
                         <h3>Kegiatan yang butuh divalidasi</h3>
 
+                        <!-- Test get siswa and collapsible accordion loop -->
+
+                        @if(count($siswas))
+
+                        
+
+                        <!-- Test Print siswa sekalian define variable $siswa
+                            @foreach($siswas as $siswa)
+
+                                <li class="list-group-item">{{$siswa->nama}}</li> 
+
+                            @endforeach 
+                        -->
+
+                        <!--  To define how many loops manually. I changed to foreach below
+                        @php
+                        $jumlah = count($siswas)
+                        @endphp
+                        -->
+
+                        <!-- accordion loop part -->
+
                         <div class="panel-group" id="accordion">
+
+                            @php
+                            $row_count = 1;
+                            @endphp
+
+                            @foreach($siswas as $siswa)
+                            <!-- 
+                                Mungkin di sini dikasih if untuk tidak menampilkan siswa yang tidak memiliki kegiatan 
+                                Sementara muncul siswanya tetapi diberi status gak ada kegiatannya.
+                            -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$row_count}}">
+                                            {{$siswa->nama}}
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse{{$row_count}}" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        @if(count($kegiatans))
+                                        <ul class="list-group">
+                                            @foreach($kegiatans as $kegiatan)
+                                                @if($kegiatan->Kevalidan == 'Menunggu validasi')
+                                                    @if($kegiatan->user_id == $siswa->user_id)
+                                                        <li class="list-group-item"><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></li>    
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                        @else
+                                        <h3>Tidak ada kegiatan untuk diproses.</h3>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            @php
+                            $row_count++;
+                            @endphp
+
+
+
+                            @endforeach
+
+                        </div> <!-- end div accordion panel-group -->
+
+
+
+
+
+
+
+                        @else
+                        <h3>Tidak ada siswa untuk diproses.</h3>
+                        @endif
+
+
+
+
+                        <!-- End of Test -->
+
+                        <!-- accordion before loop -->
+                        <!--  <div class="panel-group" id="accordion">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
@@ -70,10 +157,10 @@
                                         commodo consequat.</div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 
-                        @if(count($kegiatans))
+                       <!--  @if(count($kegiatans))
                         <ul class="list-group">
                             @foreach($kegiatans as $kegiatan)
                             @if($kegiatan->Kevalidan == 'Menunggu validasi')
@@ -83,68 +170,74 @@
                         </ul>
                         @else
                         <h3>Tidak ada kegiatan untuk diproses.</h3>
-                        @endif
+                        @endif -->
+
                     </div>
+
+                    <!-- Tab kegiatan tervalidasi -->
                     <div id="validated" class="tab-pane fade">
-                        <h3>Kegiatan sudah divalidasi</h3>
+                        <h3>Kegiatan yang sudah divalidasi</h3>
 
+                        
+
+                        @if(count($siswas))
+                        <!-- accordion loop part -->
                         <div class="panel-group" id="accordion">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                                            Collapsible Group 1</a>
-                                    </h4>
-                                </div>
-                                <div id="collapse4" class="panel-collapse collapse in">
-                                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo consequat.</div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
-                                            Collapsible Group 2</a>
-                                    </h4>
-                                </div>
-                                <div id="collapse5" class="panel-collapse collapse">
-                                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo consequat.</div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
-                                            Collapsible Group 3</a>
-                                    </h4>
-                                </div>
-                                <div id="collapse6" class="panel-collapse collapse">
-                                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo consequat.</div>
-                                </div>
-                            </div>
-                        </div>
 
-                        @if(count($kegiatans))
-                        <ul class="list-group">
-                            @foreach($kegiatans as $kegiatan)
-                            @if($kegiatan->Kevalidan == 'Valid')
-                            <li class="list-group-item"><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></li>
-                            @endif
+                            
+
+                            @php
+                            $row_count = 4;
+                            @endphp
+
+                            
+
+                            @foreach($siswas as $siswa)
+                            
+                          
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$row_count}}">
+                                            {{$siswa->nama}}
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse{{$row_count}}" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        @if(count($kegiatans))
+                                        <ul class="list-group">
+                                            @foreach($kegiatans as $kegiatan)
+                                                @if($kegiatan->Kevalidan == 'Valid')
+                                                    @if($kegiatan->user_id == $siswa->user_id)
+                                                        <li class="list-group-item"><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></li>    
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                        @else
+                                        <h3>Tidak ada kegiatan untuk diproses.</h3>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            @php
+                            $row_count++;
+                            @endphp
+
+
+
                             @endforeach
-                        </ul>
+
+                        </div> <!-- end div accordion panel-group -->
+
                         @else
-                        <h3>Tidak ada kegiatan untuk diproses.</h3>
+                        <h3>Tidak ada siswa untuk diproses.</h3>
                         @endif
+
                     </div>
+
+                    <!-- Tab Kegiatan invalid -->
                     <div id="invalid" class="tab-pane fade">
                         <h3>Kegiatan invalid</h3>
 

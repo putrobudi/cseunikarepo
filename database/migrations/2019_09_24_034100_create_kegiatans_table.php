@@ -20,7 +20,9 @@ class CreateKegiatansTable extends Migration
             $table->date('Tanggal'); //Can you save it? 
             $table->string('Deskripsi'); 
             $table->string('Bukti'); //Should be pdf format -> pre/post Proposal
+            $table->enum('Jenis_Bukti', ['SK', 'Proposal', 'LPJ']);
             $table->string('Foto'); //Should be photo format
+            $table->enum('Status', ['Individu', 'BEM', 'HMPSSI', 'HMPTI', 'Senat']);
             $table->enum('Kevalidan', ['Menunggu validasi', 'Valid', 'Invalid']);
             $table->timestamps();
         });

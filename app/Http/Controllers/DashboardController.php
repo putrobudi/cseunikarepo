@@ -37,20 +37,31 @@ class DashboardController extends Controller
 
         $user_id = auth()->user()->id; 
         $user = User::find($user_id);
-        /*$kegiatans = $user->kegiatans;
+        
+        /* Foreach reference
+        $kegiatans = $user->kegiatans;
         echo count($kegiatans);
         foreach($kegiatans as $kegiatan){
             echo $kegiatan->Judul;
-        }*/
+        }
+        */
 
         $id_peran = $user->id_peran;
 
         $dosens = Dosen::where('user_id', $user_id)->get();
 
+        $nid = '';
+
         foreach($dosens as $dosen){
-            
+            $nid = $dosen->nid; 
         }
         
+        
+
+        $siswas = Siswa::where('dosen_id', $nid)->get();
+        
+        
+
         
 
         
@@ -62,19 +73,23 @@ class DashboardController extends Controller
         $kegiatans = Kegiatan::orderBy('created_at', 'desc')->get();
         
 
-        /*echo $id_peran;
+        /* Peran reference
+        echo $id_peran;
 
         $peran = Peran::find($id_peran);
-        echo $peran->peran;*/
+        echo $peran->peran;
+        
+        */
         
        
-        if($id_peran == 8 || $id_peran == 9 || $id_peran == 10)
+         if($id_peran == 8 || $id_peran == 9 || $id_peran == 10)
             return view('dashboard')->with('kegiatans', $kegiatans)->with('peran_id', $id_peran)
-            ->with('siswas', $dosen->siswas);
+            ->with('siswas', $siswas);
             
         else
             return view('dashboard')->with('kegiatans', $user->kegiatans)->with('peran_id', $id_peran);
 
+ 
 
 
     }
