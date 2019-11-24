@@ -56,21 +56,13 @@ class DashboardController extends Controller
             $nid = $dosen->nid; 
         }
         
-        
 
         $siswas = Siswa::where('dosen_id', $nid)->get();
         
-        
 
-        
-
-        
-
-        
-        
-    
-
-        $kegiatans = Kegiatan::orderBy('created_at', 'desc')->get();
+        $kegiatans = Kegiatan::where('Status', 'Individu')
+        ->orderBy('created_at', 'desc')
+        ->get();
         
 
         /* Peran reference

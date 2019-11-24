@@ -2,9 +2,13 @@
 
 @section('content')
 
+    <h1 align="center">Dashboard</h1>
+    <p align="center">
+        Selamat datang di dashboard kegiatanmu
+    </p>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+        <div class="col-md-12 col-md-offset-0">
+            <div class="panel panel-primary">
 
                 @if($peran_id == 8 || $peran_id == 9 || $peran_id == 10)
                     <div class="panel-heading">Dashboard</div>
@@ -332,13 +336,19 @@
 
                 @else
 
-                    <div class="panel-heading">Dashboard <span class="pull-right"><a href="/kegiatans/create" class="btn btn-success btn-xs">Upload Kegiatan</a></span></div>
+                   
+                    
+
+                    <div class="panel-heading">
+                        <strong>Kegiatanmu</strong>
+                        <span class="pull-right"><a href="/kegiatans/create" class="btn btn-success btn-xs">Upload Kegiatan</a></span>
+                    </div>
                         <div class="panel-body">
-                            <h3>Kegiatanmu</h3>
+                            
 
                             
 
-                            <ul class="nav nav-tabs" id="myTab">
+                            <ul class="nav nav-tabs nav-justified" id="myTab">
                                 <li class="active"><a data-toggle="tab" href="#to_validate">Kegiatan menunggu divalidasi</a></li>
                                 <li><a data-toggle="tab" href="#validated">Kegiatan tervalidasi</a></li>
                                 <li><a data-toggle="tab" href="#invalid">Kegiatan invalid</a></li>
@@ -348,11 +358,17 @@
                                 <div id="to_validate" class="tab-pane fade in active">
 
                                     @if(count($kegiatans))
+                                    @php
+                                        $i = 0;
+                                    @endphp
                                     <table class="table table-striped">
                                         @foreach($kegiatans as $kegiatan)
                                         <tr>
 
                                             @if($kegiatan->Kevalidan == 'Menunggu validasi')
+                                            @php
+                                                $i++;
+                                            @endphp
                                             <td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
                                             <td><a class="pull-right btn btn-default" href="/kegiatans/{{$kegiatan->id}}/edit">Edit</a></td>
                                             <td>
@@ -361,11 +377,16 @@
                                                 {{ Form::bsSubmit('Delete', ['class' => 'btn btn-danger']) }}
                                                 {!! Form::close() !!}
                                             </td>
+                                            
                                             @endif
 
                                         </tr>
                                         @endforeach
+                                        
                                     </table>
+                                    @if($i == 0)
+                                        <h3>Kamu tidak punya kegiatan untuk divalidasi</h3>
+                                    @endif
 
                                     @else
                                     <h3>Tidak ada kegiatan untuk diproses.</h3>
@@ -375,18 +396,26 @@
                                 <div id="validated" class="tab-pane fade">
 
                                     @if(count($kegiatans))
+                                    @php
+                                        $i = 0;
+                                    @endphp
                                     <table class="table table-striped">
                                         @foreach($kegiatans as $kegiatan)
                                         <tr>
 
                                             @if($kegiatan->Kevalidan == 'Valid')
+                                            @php
+                                                $i++;
+                                            @endphp
                                             <td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
                                             @endif
 
                                         </tr>
                                         @endforeach
                                     </table>
-
+                                    @if($i == 0)
+                                        <h3>Kamu tidak punya kegiatan yang tervalidasi</h3>
+                                    @endif
                                     @else
                                     <h3>Tidak ada kegiatan untuk diproses.</h3>
                                     @endif
@@ -395,18 +424,26 @@
                                 <div id="invalid" class="tab-pane fade">
 
                                     @if(count($kegiatans))
+                                    @php
+                                        $i = 0;
+                                    @endphp
                                     <table class="table table-striped">
                                         @foreach($kegiatans as $kegiatan)
                                         <tr>
 
                                             @if($kegiatan->Kevalidan == 'Invalid')
+                                            @php
+                                                $i++;
+                                            @endphp
                                             <td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
                                             @endif
 
                                         </tr>
                                         @endforeach
                                     </table>
-
+                                    @if($i == 0)
+                                        <h3>Tidak ada kegiatan invalid ditemukan</h3>
+                                    @endif
                                     @else
                                     <h3>Tidak ada kegiatan untuk diproses.</h3>
                                     @endif
