@@ -1,0 +1,2 @@
+coba copas file .env di folder ini ke direktori htdocs/cseunikarepo untuk mengatasi error ketika proses
+instalasi generate key di cmd.
