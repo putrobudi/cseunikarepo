@@ -40,4 +40,6 @@ class PagesController extends Controller
     public function getHMPTI(){
         return view('hmpti');
     }
+
+    
 }

@@ -39,9 +39,13 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-
+//I believe /updateValidasi is made when you try to link to @updateValidasi function
+//in controller. Example when you click submit type button that directs to updateValidasi
+//function. 
 Route::patch('kegiatans/{kegiatan}/updateValidasi', 'KegiatanController@updateValidasi');
+Route::get('kegiatans/createkegiatanhmpssi', 'KegiatanController@createHMPSSI');
 Route::resource('kegiatans', 'KegiatanController');
+
 
 Route::resource('peran', 'PeranController');
 Route::resource('siswa', 'SiswaController');

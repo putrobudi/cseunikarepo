@@ -18,7 +18,6 @@ class KegiatanController extends Controller
     {
         /*$kegiatans = Kegiatan::orderBy('created_at', 'desc')->get();
         return view('kegiatans')->with('kegiatans', $kegiatans);*/
-
         
     }
 
@@ -29,7 +28,26 @@ class KegiatanController extends Controller
      */
     public function create()
     {
+        
         return view('createkegiatan');
+    }
+
+    public function createHMPSSI(){
+
+        //return 123;
+        return view('createkegiatanhmpssi');
+    }
+
+    public function createBEM(){
+        return view('createkegiatanbem');
+    }
+
+    public function createSENAT(){
+        return view('createkegiatansenat');
+    }
+
+    public function createHMPTI(){
+        return view('createkegiatanhmpti');
     }
 
     /**
@@ -44,9 +62,10 @@ class KegiatanController extends Controller
             'Judul' => 'required',
             'Tanggal' => 'required',
             'Deskripsi' => 'required',
-            'Bukti' => 'required',
-            'Foto' => 'required'
+            'Bukti' => 'required'
         ]);
+
+
        //return 123;
        $kegiatan = new Kegiatan;
        $kegiatan->Judul = $request->input('Judul');
@@ -54,10 +73,28 @@ class KegiatanController extends Controller
        $kegiatan->Deskripsi = $request->input('Deskripsi');
        $kegiatan->Bukti = $request->input('Bukti');
        $kegiatan->Foto = $request->input('Foto');
+       $kegiatan->Jenis_Bukti = $request->input('Jenis_Bukti');
+       $kegiatan->Status = $request->input('Status');
        $kegiatan->user_id = auth()->user()->id;
 
        $kegiatan->save();
-       return redirect('/dashboard')->with('success', 'Kegiatan berhasil diajukan');
+
+       if ($kegiatan->Status == 'HMPSSI') {
+           return redirect('/hmpssi');
+       }
+       elseif ($kegiatan->Status == 'BEM' ) {
+           return redirect('/bem');
+       }
+       elseif ($kegiatan->Status == 'SENAT') {
+           return redirect('/senat');
+       }
+       elseif ($kegiatan->Status == 'HMPTI') {
+           return redirect('/hmpti');
+       }
+       else {
+           return redirect('/dashboard')->with('success', 'Kegiatan berhasil diajukan'); 
+       }
+       
        
        
     }
@@ -161,7 +198,13 @@ class KegiatanController extends Controller
     {
         $kegiatan = Kegiatan::find($id);
         $kegiatan->delete();
-        return redirect('/dashboard')->with('success', 'Kegiatan berhasil dihapus');
+        if (url()->previous() == 'http://cseunikarepo.io/hmpssi') {
+            return redirect('/hmpssi')->with('success', 'Kegiatan berhasil dihapus');
+        }else{
+             return redirect('/dashboard')->with('success', 'Kegiatan berhasil dihapus');
+        }
+       
+        
     }
 
     public function __construct()

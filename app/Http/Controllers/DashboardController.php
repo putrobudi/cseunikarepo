@@ -63,6 +63,10 @@ class DashboardController extends Controller
         $kegiatans = Kegiatan::where('Status', 'Individu')
         ->orderBy('created_at', 'desc')
         ->get();
+
+        $kegiatans_hmpssi = Kegiatan::where('Status', 'HMPSSI')
+        ->orderBy('created_at', 'desc')
+        ->get();
         
 
         /* Peran reference
@@ -76,7 +80,8 @@ class DashboardController extends Controller
        
          if($id_peran == 8 || $id_peran == 9 || $id_peran == 10)
             return view('dashboard')->with('kegiatans', $kegiatans)->with('peran_id', $id_peran)
-            ->with('siswas', $siswas);
+            ->with('siswas', $siswas)->with('dosen', $dosen)
+            ->with('kegiatans_hmpssi', $kegiatans_hmpssi);
             
         else
             return view('dashboard')->with('kegiatans', $user->kegiatans)->with('peran_id', $id_peran);

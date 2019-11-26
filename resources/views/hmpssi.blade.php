@@ -9,7 +9,7 @@
 		<div class="col-md-12 col-md-offset-0">
 			<div class="panel panel-primary">
 				@if($peran_id == 5)
-					<div class="panel-heading"><strong>Kegiatan HMPSSI</strong><span class="pull-right"><a href="/kegiatans/create" class="btn btn-success btn-xs">Upload Kegiatan HMPSSI</a></span></div>
+					<div class="panel-heading"><strong>Kegiatan HMPSSI</strong><span class="pull-right"><a href="/kegiatans/createkegiatanhmpssi" class="btn btn-success btn-xs">Upload Kegiatan HMPSSI</a></span></div>
 					<div class="panel-body">
 						<ul class = "nav nav-tabs nav-justified" id="tabHeader">
 							<li class="active"><a data-toggle="tab" href="#rencana_kegiatan">Rencana Kegiatan</a></li>
@@ -27,6 +27,7 @@
 								</ul>
 
 								<div class="tab-content">
+									<!-- Konten tab menunggu validasi -->
 									<div id="to_validate" class="tab-pane fade in active">
 										@if(count($kegiatans))
 											@php
@@ -35,14 +36,17 @@
 											<table class="table table-striped">
 												@foreach($kegiatans as $kegiatan)
 													<tr>
-														@if($kegiatan->Kevalidan == 'Menunggu Validasi')
+														@if($kegiatan->Kevalidan == 'Menunggu validasi')
 															@php
 																$i++;					
 															@endphp
 															<td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
 															<td><a class="pull-right btn btn-default" href="/kegiatans/{{$kegiatan->id}}/edit">Edit</a></td>
 															<td>
-																
+																{!! Form::open(['action' => ['KegiatanController@destroy', $kegiatan->id], 'method' => 'POST', 'class' => 'pull-left', 'onsubmit' => 'return confirm("Are you sure?")']) !!}
+					                                                {{ Form::hidden('_method', 'DELETE') }}
+					                                                {{ Form::bsSubmit('Delete', ['class' => 'btn btn-danger']) }}
+				                                                {!! Form::close() !!}
 															</td>
 														@endif
 													</tr>
@@ -50,6 +54,56 @@
 											</table>
 											@if($i == 0)
 												<h3>Tidak ada kegiatan HMPSSI yang butuh divalidasi</h3>
+											@endif
+										@else
+											<h3>Tidak ada kegiatan ditemukan</h3>	
+										@endif
+									</div>
+									<!-- Konten tab kegiatan tervalidasi -->
+									<div id="validated" class="tab-pane fade">
+										@if(count($kegiatans))
+											@php
+												$i = 0;
+											@endphp
+											<table class="table table-striped">
+												@foreach($kegiatans as $kegiatan)
+													<tr>
+														@if($kegiatan->Kevalidan == 'Valid')
+															@php
+																$i++;					
+															@endphp
+															<td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
+														@endif
+													</tr>
+												@endforeach
+											</table>
+											@if($i == 0)
+												<h3>Tidak ada kegiatan HMPSSI valid ditemukan</h3>
+											@endif
+										@else
+											<h3>Tidak ada kegiatan ditemukan</h3>	
+										@endif
+									</div>
+									<!-- Konten tab invalid -->
+									<div id="invalid" class="tab-pane fade">
+										@if(count($kegiatans))
+											@php
+												$i = 0;
+											@endphp
+											<table class="table table-striped">
+												@foreach($kegiatans as $kegiatan)
+													<tr>
+														@if($kegiatan->Kevalidan == 'Invalid')
+															@php
+																$i++;					
+															@endphp
+															<td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
+														@endif
+													</tr>
+												@endforeach
+											</table>
+											@if($i == 0)
+												<h3>Tidak ada kegiatan HMPSSI invalid yang ditemukan</h3>
 											@endif
 										@else
 											<h3>Tidak ada kegiatan ditemukan</h3>	

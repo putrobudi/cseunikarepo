@@ -5,15 +5,37 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
-            <div class="panel-heading">{{$kegiatan->Judul}} <a href="/dashboard" class="pull-right btn btn-default btn-xs">Kembali</a></div>
+            
+              
+          
+            <div class="panel-heading">{{$kegiatan->Judul}} 
+              @if($kegiatan->Status == 'HMPSSI')
+                @if($peran_id == 10)
+                  <a href="/dashboard" class="pull-right btn btn-default btn-xs">Kembali</a>
+                @else
+                  <a href="/hmpssi" class="pull-right btn btn-default btn-xs">Kembali</a>
+                @endif 
+              @else
+                <a href="/dashboard" class="pull-right btn btn-default btn-xs">Kembali</a>
+              @endif
+            </div>
 
             <div class="panel-body">
               <ul class="list-group">
+                @if($kegiatan->Status == 'HMPSSI')
+                <li class="list-group-item">Mahasiswa Pengunggah Kegiatan HMPPSI: <br> 
+                  Nama: {{$siswa->nama}} <br>
+                  NIM: {{$siswa->nim}}
+                </li>
+                @else
                 <li class="list-group-item">Mahasiswa: {{$siswa->nama}}</li>
                 <li class="list-group-item">NIM: {{$siswa->nim}}</li>
+                @endif
                 <li class="list-group-item">Tanggal: {{$kegiatan->Tanggal}}</li>
-                <li class="list-group-item">Bukti: {{$kegiatan->Bukti}}</li>
+                <li class="list-group-item">Bukti Proposal: {{$kegiatan->Bukti}}</li>
+                @if($kegiatan->Jenis_Bukti == 'SK' || $kegiatan->Jenis_Bukti == 'LPJ')
                 <li class="list-group-item">Foto: {{$kegiatan->Foto}}</li>
+                @endif
               </ul>
 
               <hr>
