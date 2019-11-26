@@ -30,16 +30,52 @@ class PagesController extends Controller
     }
 
     public function getBEM(){
-        return view('bem');
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        $id_peran = $user->id_peran;
+
+        $kegiatans = Kegiatan::where('Status', 'BEM')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+
+        return view('bem')
+        ->with('kegiatans', $kegiatans)
+        ->with('peran_id', $id_peran);
     }
 
     public function getSenat(){
-        return view('senat');
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        $id_peran = $user->id_peran;
+
+        $kegiatans = Kegiatan::where('Status', 'Senat')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+
+        return view('senat')
+        ->with('kegiatans', $kegiatans)
+        ->with('peran_id', $id_peran);
     }
 
     public function getHMPTI(){
-        return view('hmpti');
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        $id_peran = $user->id_peran;
+
+        $kegiatans = Kegiatan::where('Status', 'HMPTI')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+
+        return view('hmpti')
+        ->with('kegiatans', $kegiatans)
+        ->with('peran_id', $id_peran);
     }
 
-    
+
 }

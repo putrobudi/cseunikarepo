@@ -15,6 +15,12 @@
                 @else
                   <a href="/hmpssi" class="pull-right btn btn-default btn-xs">Kembali</a>
                 @endif 
+              @elseif($kegiatan->Status == 'BEM')
+                <a href="/bem" class="pull-right btn btn-default btn-xs">Kembali</a>
+              @elseif($kegiatan->Status == 'Senat')
+                <a href="/senat" class="pull-right btn btn-default btn-xs">Kembali</a>
+              @elseif($kegiatan->Status == 'HMPTI')
+                <a href="/hmpti" class="pull-right btn btn-default btn-xs">Kembali</a>
               @else
                 <a href="/dashboard" class="pull-right btn btn-default btn-xs">Kembali</a>
               @endif

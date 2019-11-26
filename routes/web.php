@@ -44,6 +44,9 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 //function. 
 Route::patch('kegiatans/{kegiatan}/updateValidasi', 'KegiatanController@updateValidasi');
 Route::get('kegiatans/createkegiatanhmpssi', 'KegiatanController@createHMPSSI');
+Route::get('kegiatans/createkegiatanbem', 'KegiatanController@createBEM');
+Route::get('kegiatans/createkegiatansenat', 'KegiatanController@createSENAT');
+Route::get('kegiatans/createkegiatanhmpti', 'KegiatanController@createHMPTI');
 Route::resource('kegiatans', 'KegiatanController');
 
 
