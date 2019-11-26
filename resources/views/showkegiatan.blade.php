@@ -16,9 +16,17 @@
                   <a href="/hmpssi" class="pull-right btn btn-default btn-xs">Kembali</a>
                 @endif 
               @elseif($kegiatan->Status == 'BEM')
-                <a href="/bem" class="pull-right btn btn-default btn-xs">Kembali</a>
+                @if($peran_id == 9)
+                  <a href="/dashboard" class="pull-right btn btn-default btn-xs">Kembali</a>  
+                @else
+                  <a href="/bem" class="pull-right btn btn-default btn-xs">Kembali</a>
+                @endif
               @elseif($kegiatan->Status == 'Senat')
-                <a href="/senat" class="pull-right btn btn-default btn-xs">Kembali</a>
+                @if($peran_id == 9)
+                  <a href="/dashboard" class="pull-right btn btn-default btn-xs">Kembali</a>
+                @else
+                  <a href="/senat" class="pull-right btn btn-default btn-xs">Kembali</a>
+                @endif  
               @elseif($kegiatan->Status == 'HMPTI')
                 <a href="/hmpti" class="pull-right btn btn-default btn-xs">Kembali</a>
               @else
@@ -30,6 +38,16 @@
               <ul class="list-group">
                 @if($kegiatan->Status == 'HMPSSI')
                 <li class="list-group-item">Mahasiswa Pengunggah Kegiatan HMPPSI: <br> 
+                  Nama: {{$siswa->nama}} <br>
+                  NIM: {{$siswa->nim}}
+                </li>
+                @elseif($kegiatan->Status == 'BEM')
+                <li class="list-group-item">Mahasiswa Pengunggah Kegiatan BEM IKOM: <br>
+                  Nama: {{$siswa->nama}} <br>
+                  NIM: {{$siswa->nim}}
+                </li>
+                @elseif($kegiatan->Status == 'Senat')
+                <li class="list-group-item">Mahasiswa Pengunggah Kegiatan Senat IKOM: <br>
                   Nama: {{$siswa->nama}} <br>
                   NIM: {{$siswa->nim}}
                 </li>
