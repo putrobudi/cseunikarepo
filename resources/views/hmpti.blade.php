@@ -8,6 +8,7 @@
 	<div class="row">
 		<div class="col-md-12 col-md-offset-0">
 			<div class="panel panel-primary">
+			@if($peran_id != 2)
 				@if($peran_id == 7)
 					<div class="panel-heading"><strong>Kegiatan HMPTI</strong><span class="pull-right"><a href="/kegiatans/createkegiatanhmpti" class="btn btn-success btn-xs">Upload Kegiatan HMPTI</a></span></div>
 				@else
@@ -138,7 +139,11 @@
 													<h3>Tidak ada kegiatan ditemukan</h3>	
 												@endif	
 								@endif <!-- peran_id == 7 (hmpti) -->
-
+			@else
+			<p align = 'middle'> 
+					Untuk dapat melihat kegiatan HMPTI, silahkan login terlebih dahulu sebagai user yang terdaftar di UNIKA.
+			</p>
+			@endif <!-- endif peran_id != 2 -->
 								
 							</div> <!-- end div id rencana kegiatan -->
 						</div> <!-- end div class tab content -->

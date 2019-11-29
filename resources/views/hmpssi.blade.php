@@ -8,12 +8,14 @@
 	<div class="row">
 		<div class="col-md-12 col-md-offset-0">
 			<div class="panel panel-primary">
+			@if($peran_id != 2)
 				@if($peran_id == 5)
 					<div class="panel-heading"><strong>Kegiatan HMPSSI</strong><span class="pull-right"><a href="/kegiatans/createkegiatanhmpssi" class="btn btn-success btn-xs">Upload Kegiatan HMPSSI</a></span></div>
 				@else
 					<div class="panel-heading"><strong>Kegiatan HMPSSI</strong></div>	
 				@endif
 
+				
 					<div class="panel-body">
 						<ul class = "nav nav-tabs nav-justified" id="tabHeader">
 							<li class="active"><a data-toggle="tab" href="#rencana_kegiatan">Rencana Kegiatan</a></li>
@@ -139,6 +141,11 @@
 													<h3>Tidak ada kegiatan ditemukan</h3>	
 												@endif	
 								@endif <!-- peran_id == 5(hmpssi) -->
+			@else
+				<p align = 'middle'> 
+					Untuk dapat melihat kegiatan HMPSSI, silahkan login terlebih dahulu sebagai user yang terdaftar di UNIKA.
+				</p>
+			@endif <!-- endif peran_id != 2 -->
 
 								
 							</div> <!-- end div id rencana kegiatan -->

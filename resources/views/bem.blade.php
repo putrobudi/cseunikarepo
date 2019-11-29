@@ -8,6 +8,7 @@
 	<div class="row">
 		<div class="col-md-12 col-md-offset-0">
 			<div class="panel panel-primary">
+			@if($peran_id != 2)
 				@if($peran_id == 4)
 					<div class="panel-heading"><strong>Kegiatan BEM</strong><span class="pull-right"><a href="/kegiatans/createkegiatanbem" class="btn btn-success btn-xs">Upload Kegiatan BEM</a></span></div>
 				@else
@@ -138,6 +139,12 @@
 													<h3>Tidak ada kegiatan ditemukan</h3>	
 												@endif	
 								@endif <!-- peran_id == 4 (BEM IKOM) -->
+			@else
+				<p align = 'middle'>
+					Untuk dapat melihat kegiatan BEM IKOM, silahkan login terlebih dahulu
+					sebagai user yang terdaftar di UNIKA.
+				</p>
+			@endif <!-- endif peran_id != 2 -->
 
 
 								

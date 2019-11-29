@@ -8,6 +8,7 @@
 	<div class="row">
 		<div class="col-md-12 col-md-offset-0">
 			<div class="panel panel-primary">
+			@if($peran_id != 2)
 				@if($peran_id == 6)
 					<div class="panel-heading"><strong>Kegiatan Senat IKOM</strong><span class="pull-right"><a href="/kegiatans/createkegiatansenat" class="btn btn-success btn-xs">Upload Kegiatan Senat IKOM</a></span></div>
 				@else
@@ -137,7 +138,12 @@
 												@else
 													<h3>Tidak ada kegiatan ditemukan</h3>	
 												@endif	
-								@endif
+								@endif <!-- peran_id == 6 -->
+			@else
+				<p align = 'middle'>
+					Untuk dapat melihat kegiatan Senat IKOM, silahkan login terlebih dahulu sebagai user yang terdaftar di UNIKA.
+				</p>
+			@endif <!-- endif peran_id != 2 -->
 
 								
 							</div> <!-- end div id rencana kegiatan -->
