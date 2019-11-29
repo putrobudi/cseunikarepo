@@ -28,7 +28,11 @@
                   <a href="/senat" class="pull-right btn btn-default btn-xs">Kembali</a>
                 @endif  
               @elseif($kegiatan->Status == 'HMPTI')
-                <a href="/hmpti" class="pull-right btn btn-default btn-xs">Kembali</a>
+                @if($peran_id == 9)
+                  <a href="/dashboard" class="pull-right btn btn-default btn-xs">Kembali</a>
+                @else
+                  <a href="/hmpti" class="pull-right btn btn-default btn-xs">Kembali</a>
+                @endif
               @else
                 <a href="/dashboard" class="pull-right btn btn-default btn-xs">Kembali</a>
               @endif
@@ -48,6 +52,11 @@
                 </li>
                 @elseif($kegiatan->Status == 'Senat')
                 <li class="list-group-item">Mahasiswa Pengunggah Kegiatan Senat IKOM: <br>
+                  Nama: {{$siswa->nama}} <br>
+                  NIM: {{$siswa->nim}}
+                </li>
+                @elseif($kegiatan->Status == 'HMPTI')
+                <li class="list-group-item"> Mahasiswa Penggungah Kegiatan HMPTI IKOM: <br>
                   Nama: {{$siswa->nama}} <br>
                   NIM: {{$siswa->nim}}
                 </li>

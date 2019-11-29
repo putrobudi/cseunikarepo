@@ -8,15 +8,15 @@
    
     @if($peran_id == 10)
     <p align="center">
-        Selamat datang Kaprogdi
+        Selamat datang Kaprogdi SI
     </p>
     @elseif($peran_id == 9)
     <p align="center">
-        Selamat datang Dekan
+        Selamat datang Dekan IKOM
     </p>
     @elseif($peran_id == 8)
     <p align="center">
-        Selamat datang dosen
+        Selamat datang dosen SI
     </p>
     @else
     <p align="center">
