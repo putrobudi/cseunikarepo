@@ -78,6 +78,7 @@
 																		$i++;					
 																	@endphp
 																	<td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
+																	<td><a class="pull-right btn btn-default" href="/kegiatans/{{$kegiatan->id}}/edit">Upload LPJ</a></td>
 																@endif
 															</tr>
 														@endforeach
@@ -139,6 +140,34 @@
 													<h3>Tidak ada kegiatan ditemukan</h3>	
 												@endif	
 								@endif <!-- peran_id == 4 (BEM IKOM) -->
+
+							</div> <!-- end div id rencana kegiatan -->
+							<div id="arsip_kegiatan" class="tab-pane fade"> {{-- Tab konten arsip kegiatan --}}
+									@if(count($kegiatans))
+														@php
+															$i = 0;
+														@endphp
+														<table class="table table-striped">
+															@foreach($kegiatans as $kegiatan)
+																<tr>
+																	@if($kegiatan->Kevalidan == 'Valid' && $kegiatan->Jenis_Bukti == 'LPJ')
+																		@php
+																			$i++;					
+																		@endphp
+																		<td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
+																	@endif
+																</tr>
+															@endforeach
+														</table>
+														@if($i == 0)
+															<h3>Tidak ada arsip kegiatan BEM IKOM ditemukan.</h3>
+														@endif
+													@else
+														<h3>Tidak ada kegiatan ditemukan</h3>	
+													@endif	
+								</div>
+						</div> <!-- end div class tab content -->
+					</div> <!-- end div class panel body -->
 			@else
 				<p align = 'middle'>
 					Untuk dapat melihat kegiatan BEM IKOM, silahkan login terlebih dahulu
@@ -148,9 +177,7 @@
 
 
 								
-							</div> <!-- end div id rencana kegiatan -->
-						</div> <!-- end div class tab content -->
-					</div> <!-- end div class panel body -->
+					
 				
 			</div> <!-- end div panel panel-primary -->
 		</div> <!-- end div col md 12 -->

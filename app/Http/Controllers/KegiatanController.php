@@ -196,10 +196,14 @@ class KegiatanController extends Controller
 
         $kegiatan->save();
 
-        if ($kegiatan->Status == 'HMPSSI') {
+        if ($kegiatan->Status == 'HMPSSI') 
             return redirect('/hmpssi')->with('success', 'Upload LPJ berhasil dilakukan. Kegiatan sudah masuk arsip');
-        }
-        
+        elseif ($kegiatan->Status == 'BEM')
+            return redirect('/bem')->with('success', 'Upload LPJ berhasil dilakukan. Kegiatan sudah masuk arsip');
+        elseif ($kegiatan->Status == 'Senat')
+            return redirect('/senat')->with('success', 'Upload LPJ berhasil dilakukan. Kegiatan sudah masuk arsip');
+        elseif ($kegiatan->Status == 'HMPTI')
+            return redirect('/hmpti')->with('success', 'Upload LPJ berhasil dilakukan. Kegiatan sudah masuk arsip');
 
     }
 
