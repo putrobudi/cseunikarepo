@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Kegiatan;
 use App\User;
 use App\Siswa;
+use storage;
 
 class KegiatanController extends Controller
 {
@@ -85,7 +86,7 @@ class KegiatanController extends Controller
        elseif ($kegiatan->Status == 'BEM' ) {
            return redirect('/bem');
        }
-       elseif ($kegiatan->Status == 'SENAT') {
+       elseif ($kegiatan->Status == 'Senat') {
            return redirect('/senat');
        }
        elseif ($kegiatan->Status == 'HMPTI') {
@@ -173,7 +174,7 @@ class KegiatanController extends Controller
             return redirect('/hmpssi');
         } elseif ($kegiatan->Status == 'BEM') {
             return redirect('/bem');
-        } elseif ($kegiatan->Status == 'SENAT') {
+        } elseif ($kegiatan->Status == 'Senat') {
             return redirect('/senat');
         } elseif ($kegiatan->Status == 'HMPTI') {
             return redirect('/hmpti');
@@ -235,6 +236,12 @@ class KegiatanController extends Controller
         $kegiatan->delete();
         if (url()->previous() == 'http://cseunikarepo.io/hmpssi') {
             return redirect('/hmpssi')->with('success', 'Kegiatan berhasil dihapus');
+        }elseif (url()->previous() == 'http://cseunikarepo.io/bem'){
+            return redirect('/bem')->with('success', 'Kegiatan berhasil dihapus');
+        }elseif (url()->previous() == 'http://cseunikarepo.io/senat'){
+            return redirect('/senat')->with('success', 'Kegiatan berhasil dihapus');
+        }elseif (url()->previous() == 'http://cseunikarepo.io/hmpti'){
+            return redirect('/hmpti')->with('success', 'Kegiatan berhasil dihapus');
         }else{
              return redirect('/dashboard')->with('success', 'Kegiatan berhasil dihapus');
         }

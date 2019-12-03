@@ -14,7 +14,7 @@
                     {{ Form::bsTextArea('Deskripsi', '', ['placeholder' => 'Tentang Kegiatan']) }}
                     {{ Form::bsText('Bukti', '', ['placeholder' => 'Proposal']) }}
                     {{ Form::hidden('Jenis_Bukti', 'Proposal')}}
-                    {{ Form::hidden('Status', 'SENAT')}}
+                    {{ Form::hidden('Status', 'Senat')}}
                   <!--  {{ Form::bsText('Kevalidan', '', ['placeholder' => '0 = Invalid; 1=Valid']) }} -->
                     {{ Form::bsSubmit('Submit', ['class' => 'btn btn-primary']) }}
                 {!! Form::close() !!}

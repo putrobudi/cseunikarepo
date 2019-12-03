@@ -8,27 +8,27 @@
             
               
           
-            <div class="panel-heading">{{$kegiatan->Judul}} 
+            <div class="panel-heading">{{$kegiatan->Judul}} {{url()->previous()}}
               @if($kegiatan->Status == 'HMPSSI')
-                @if($peran_id == 10)
+                @if($peran_id == 10 && url()->previous() == 'http://cseunikarepo.io/dashboard')
                   <a href="/dashboard" class="pull-right btn btn-default btn-xs">Kembali</a>
                 @else
                   <a href="/hmpssi" class="pull-right btn btn-default btn-xs">Kembali</a>
                 @endif 
               @elseif($kegiatan->Status == 'BEM')
-                @if($peran_id == 9)
+                @if($peran_id == 9 && url()->previous() == 'http://cseunikarepo.io/dashboard')
                   <a href="/dashboard" class="pull-right btn btn-default btn-xs">Kembali</a>  
                 @else
                   <a href="/bem" class="pull-right btn btn-default btn-xs">Kembali</a>
                 @endif
               @elseif($kegiatan->Status == 'Senat')
-                @if($peran_id == 9)
+                @if($peran_id == 9 && url()->previous() == 'http://cseunikarepo.io/dashboard')
                   <a href="/dashboard" class="pull-right btn btn-default btn-xs">Kembali</a>
                 @else
                   <a href="/senat" class="pull-right btn btn-default btn-xs">Kembali</a>
                 @endif  
               @elseif($kegiatan->Status == 'HMPTI')
-                @if($peran_id == 9)
+                @if($peran_id == 9 && url()->previous() == 'http://cseunikarepo.io/dashboard')
                   <a href="/dashboard" class="pull-right btn btn-default btn-xs">Kembali</a>
                 @else
                   <a href="/hmpti" class="pull-right btn btn-default btn-xs">Kembali</a>

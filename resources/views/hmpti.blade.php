@@ -73,7 +73,7 @@
 													<table class="table table-striped">
 														@foreach($kegiatans as $kegiatan)
 															<tr>
-																@if($kegiatan->Kevalidan == 'Valid')
+																@if($kegiatan->Kevalidan == 'Valid' && $kegiatan->Jenis_Bukti == 'Proposal')
 																	@php
 																		$i++;					
 																	@endphp
@@ -124,7 +124,7 @@
 													<table class="table table-striped">
 														@foreach($kegiatans as $kegiatan)
 															<tr>
-																@if($kegiatan->Kevalidan == 'Valid')
+																@if($kegiatan->Kevalidan == 'Valid' && $kegiatan->Jenis_Bukti == 'Proposal')
 																	@php
 																		$i++;					
 																	@endphp
