@@ -19,7 +19,7 @@
 					<div class="panel-body">
 						<ul class = "nav nav-tabs nav-justified" id="tabHeader">
 							<li class="active"><a data-toggle="tab" href="#rencana_kegiatan">Rencana Kegiatan</a></li>
-			                <li><a data-toggle="tab" href="#arsip_kegiatan">Arsip Kegiatan</a></li>
+			        <li><a data-toggle="tab" href="#arsip_kegiatan">Arsip Kegiatan</a></li>
 						</ul>
 
 						<div class="tab-content">
@@ -75,11 +75,12 @@
 													<table class="table table-striped">
 														@foreach($kegiatans as $kegiatan)
 															<tr>
-																@if($kegiatan->Kevalidan == 'Valid')
+																@if($kegiatan->Kevalidan == 'Valid' && $kegiatan->Jenis_Bukti == 'Proposal')
 																	@php
 																		$i++;					
 																	@endphp
 																	<td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
+																	<td><a class="pull-right btn btn-default" href="/kegiatans/{{$kegiatan->id}}/edit">Upload LPJ</a></td>
 																@endif
 															</tr>
 														@endforeach
@@ -117,7 +118,7 @@
 												@endif
 											</div>
 										</div> <!-- end of rencana kegiatan tab inside -->
-								@else
+								@else {{-- Konten untuk anggota bukan hmpssi --}}
 												@if(count($kegiatans))
 													@php
 														$i = 0;
@@ -125,7 +126,7 @@
 													<table class="table table-striped">
 														@foreach($kegiatans as $kegiatan)
 															<tr>
-																@if($kegiatan->Kevalidan == 'Valid')
+																@if($kegiatan->Kevalidan == 'Valid' && $kegiatan->Jenis_Bukti == 'Proposal')
 																	@php
 																		$i++;					
 																	@endphp
@@ -141,6 +142,36 @@
 													<h3>Tidak ada kegiatan ditemukan</h3>	
 												@endif	
 								@endif <!-- peran_id == 5(hmpssi) -->
+
+							</div> <!-- end div id rencana kegiatan -->
+							<div id="arsip_kegiatan" class="tab-pane fade"> {{-- Tab konten arsip kegiatan --}}
+								@if(count($kegiatans))
+													@php
+														$i = 0;
+													@endphp
+													<table class="table table-striped">
+														@foreach($kegiatans as $kegiatan)
+															<tr>
+																@if($kegiatan->Kevalidan == 'Valid' && $kegiatan->Jenis_Bukti == 'LPJ')
+																	@php
+																		$i++;					
+																	@endphp
+																	<td><a href="/kegiatans/{{$kegiatan->id}}">{{$kegiatan->Judul}}</a></td>
+																@endif
+															</tr>
+														@endforeach
+													</table>
+													@if($i == 0)
+														<h3>Tidak ada arsip kegiatan HMPSSI ditemukan.</h3>
+													@endif
+												@else
+													<h3>Tidak ada kegiatan ditemukan</h3>	
+												@endif	
+							</div>
+						</div> <!-- end div class tab content -->
+					</div> <!-- end div class panel body -->
+								
+								
 			@else
 				<p align = 'middle'> 
 					Untuk dapat melihat kegiatan HMPSSI, silahkan login terlebih dahulu sebagai user yang terdaftar di UNIKA.
@@ -148,9 +179,7 @@
 			@endif <!-- endif peran_id != 2 -->
 
 								
-							</div> <!-- end div id rencana kegiatan -->
-						</div> <!-- end div class tab content -->
-					</div> <!-- end div class panel body -->
+
 
 					
 				

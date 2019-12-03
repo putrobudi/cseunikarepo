@@ -43,6 +43,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 //in controller. Example when you click submit type button that directs to updateValidasi
 //function. 
 Route::patch('kegiatans/{kegiatan}/updateValidasi', 'KegiatanController@updateValidasi');
+Route::patch('kegiatans/{kegiatan}/updateLPJ', 'KegiatanController@updateLPJ');
 Route::get('kegiatans/createkegiatanhmpssi', 'KegiatanController@createHMPSSI');
 Route::get('kegiatans/createkegiatanbem', 'KegiatanController@createBEM');
 Route::get('kegiatans/createkegiatansenat', 'KegiatanController@createSENAT');

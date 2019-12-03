@@ -41,33 +41,39 @@
             <div class="panel-body">
               <ul class="list-group">
                 @if($kegiatan->Status == 'HMPSSI')
-                <li class="list-group-item">Mahasiswa Pengunggah Kegiatan HMPPSI: <br> 
-                  Nama: {{$siswa->nama}} <br>
-                  NIM: {{$siswa->nim}}
-                </li>
+                  <li class="list-group-item">Mahasiswa Pengunggah Kegiatan HMPPSI: <br> 
+                    Nama: {{$siswa->nama}} <br>
+                    NIM: {{$siswa->nim}}
+                  </li>
                 @elseif($kegiatan->Status == 'BEM')
-                <li class="list-group-item">Mahasiswa Pengunggah Kegiatan BEM IKOM: <br>
-                  Nama: {{$siswa->nama}} <br>
-                  NIM: {{$siswa->nim}}
-                </li>
+                  <li class="list-group-item">Mahasiswa Pengunggah Kegiatan BEM IKOM: <br>
+                    Nama: {{$siswa->nama}} <br>
+                    NIM: {{$siswa->nim}}
+                  </li>
                 @elseif($kegiatan->Status == 'Senat')
-                <li class="list-group-item">Mahasiswa Pengunggah Kegiatan Senat IKOM: <br>
-                  Nama: {{$siswa->nama}} <br>
-                  NIM: {{$siswa->nim}}
-                </li>
+                  <li class="list-group-item">Mahasiswa Pengunggah Kegiatan Senat IKOM: <br>
+                    Nama: {{$siswa->nama}} <br>
+                    NIM: {{$siswa->nim}}
+                  </li>
                 @elseif($kegiatan->Status == 'HMPTI')
-                <li class="list-group-item"> Mahasiswa Penggungah Kegiatan HMPTI IKOM: <br>
-                  Nama: {{$siswa->nama}} <br>
-                  NIM: {{$siswa->nim}}
-                </li>
+                  <li class="list-group-item"> Mahasiswa Penggungah Kegiatan HMPTI IKOM: <br>
+                    Nama: {{$siswa->nama}} <br>
+                    NIM: {{$siswa->nim}}
+                  </li>
                 @else
-                <li class="list-group-item">Mahasiswa: {{$siswa->nama}}</li>
-                <li class="list-group-item">NIM: {{$siswa->nim}}</li>
+                  <li class="list-group-item">Mahasiswa: {{$siswa->nama}}</li>
+                  <li class="list-group-item">NIM: {{$siswa->nim}}</li>
                 @endif
-                <li class="list-group-item">Tanggal: {{$kegiatan->Tanggal}}</li>
-                <li class="list-group-item">Bukti Proposal: {{$kegiatan->Bukti}}</li>
+                  <li class="list-group-item">Tanggal: {{$kegiatan->Tanggal}}</li>
+                @if ($kegiatan->Jenis_Bukti == 'Proposal')
+                  <li class="list-group-item">Bukti Proposal: {{$kegiatan->Bukti}}</li>  
+                @elseif ($kegiatan->Jenis_Bukti == 'LPJ')
+                  <li class="list-group-item">LPJ: {{$kegiatan->Bukti}}</li>  
+                @else
+                  <li class="list-group-item">Bukti: {{$kegiatan->Bukti}}</li>                  
+                @endif
                 @if($kegiatan->Jenis_Bukti == 'SK' || $kegiatan->Jenis_Bukti == 'LPJ')
-                <li class="list-group-item">Foto: {{$kegiatan->Foto}}</li>
+                  <li class="list-group-item">Foto: {{$kegiatan->Foto}}</li>
                 @endif
               </ul>
 
@@ -83,6 +89,12 @@
                 <li class="list-group-item">Status: {{$kegiatan->Kevalidan}}</li>
               </ul>
 
+              {{-- 
+                    Khusus untuk dosen untuk validasi. I know that all dosen regardless of their status 
+                    would be able to validate all kegiatan if they decided to access this show.blade 
+                    page manually. But I hope they won't and for now, I'm just to lazy to implement the 
+                    validation for the appropriate dosen to validate. 
+              --}}
               @if($peran_id == 8 || $peran_id == 9 || $peran_id == 10)
                 @if($kegiatan->Kevalidan == 'Menunggu validasi')
                   <table width = "200" align = "center">

@@ -151,12 +151,12 @@ class KegiatanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $this->validate($request, [
             'Judul' => 'required',
             'Tanggal' => 'required',
             'Deskripsi' => 'required',
-            'Bukti' => 'required',
-            'Foto' => 'required'
+            'Bukti' => 'required'
         ]);
       
        $kegiatan = Kegiatan::find($id);
@@ -169,7 +169,38 @@ class KegiatanController extends Controller
        
 
        $kegiatan->save();
-       return redirect('/dashboard')->with('success', 'Update kegiatan berhasil diajukan');
+        if ($kegiatan->Status == 'HMPSSI') {
+            return redirect('/hmpssi');
+        } elseif ($kegiatan->Status == 'BEM') {
+            return redirect('/bem');
+        } elseif ($kegiatan->Status == 'SENAT') {
+            return redirect('/senat');
+        } elseif ($kegiatan->Status == 'HMPTI') {
+            return redirect('/hmpti');
+        } else {
+            return redirect('/dashboard')->with('success', 'Update kegiatan berhasil diajukan');
+        }
+
+    }
+
+    public function updateLPJ(Request $request, $id)
+    {
+        $kegiatan = Kegiatan::find($id);
+
+        $kegiatan->Bukti = $request->input('Bukti');
+        $kegiatan->Foto = $request->input('Foto');
+        $kegiatan->Jenis_Bukti = 'LPJ';
+        //Let's see if different user but of member organisasi update this, it will also change that the kegiatan now is 
+        // his or her.
+        $kegiatan->user_id = auth()->user()->id;
+
+        $kegiatan->save();
+
+        if ($kegiatan->Status == 'HMPSSI') {
+            return redirect('/hmpssi')->with('success', 'Upload LPJ berhasil dilakukan. Kegiatan sudah masuk arsip');
+        }
+        
+
     }
 
     public function updateValidasi(Request $request, $id)
