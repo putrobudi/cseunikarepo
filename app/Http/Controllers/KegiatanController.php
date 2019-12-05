@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Kegiatan;
 use App\User;
 use App\Siswa;
-use storage;
+use Image;
 
 class KegiatanController extends Controller
 {
@@ -59,12 +59,14 @@ class KegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+         $this->validate($request, [
             'Judul' => 'required',
             'Tanggal' => 'required',
             'Deskripsi' => 'required',
             'Bukti' => 'required'
         ]);
+
+        
 
 
        //return 123;
@@ -72,11 +74,29 @@ class KegiatanController extends Controller
        $kegiatan->Judul = $request->input('Judul');
        $kegiatan->Tanggal = $request->input('Tanggal');
        $kegiatan->Deskripsi = $request->input('Deskripsi');
-       $kegiatan->Bukti = $request->input('Bukti');
-       $kegiatan->Foto = $request->input('Foto');
+       
+       if ($request->hasFile('Bukti')) {
+        $file = $request->file('Bukti');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('SK/'), $filename);
+
+        $kegiatan->Bukti = $filename;
+       }  
+       
+       if ($request->hasFile('photokegiatan')) {
+        $image = $request->file('photokegiatan');
+        $filename = time() . '.' . $image->getClientOriginalExtension();
+        $location = public_path('fotokegiatan/' . $filename);
+        Image::make($image)->resize(800, 400)->save($location);
+
+        $kegiatan->Foto = $filename;
+       }         
+
        $kegiatan->Jenis_Bukti = $request->input('Jenis_Bukti');
        $kegiatan->Status = $request->input('Status');
        $kegiatan->user_id = auth()->user()->id;
+
+    
 
        $kegiatan->save();
 
@@ -94,7 +114,9 @@ class KegiatanController extends Controller
        }
        else {
            return redirect('/dashboard')->with('success', 'Kegiatan berhasil diajukan'); 
-       }
+       } 
+
+       
        
        
        

@@ -8,7 +8,7 @@
             
               
           
-            <div class="panel-heading">{{$kegiatan->Judul}} {{url()->previous()}}
+            <div class="panel-heading">{{$kegiatan->Judul}} 
               @if($kegiatan->Status == 'HMPSSI')
                 @if($peran_id == 10 && url()->previous() == 'http://cseunikarepo.io/dashboard')
                   <a href="/dashboard" class="pull-right btn btn-default btn-xs">Kembali</a>
@@ -70,10 +70,12 @@
                 @elseif ($kegiatan->Jenis_Bukti == 'LPJ')
                   <li class="list-group-item">LPJ: {{$kegiatan->Bukti}}</li>  
                 @else
-                  <li class="list-group-item">Bukti: {{$kegiatan->Bukti}}</li>                  
+                  <li class="list-group-item">
+                    Bukti: <a href="{{ asset('SK/' . $kegiatan->Bukti) }}">Download Bukti</a>
+                  </li>                  
                 @endif
                 @if($kegiatan->Jenis_Bukti == 'SK' || $kegiatan->Jenis_Bukti == 'LPJ')
-                  <li class="list-group-item">Foto: {{$kegiatan->Foto}}</li>
+                  <li class="list-group-item">Foto Aktivitas: <br><br> <img src="{{ asset('fotokegiatan/' . $kegiatan->Foto) }}" height="100" width="200" /></li>
                 @endif
               </ul>
 
